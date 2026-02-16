@@ -3,9 +3,9 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF, Environment } from '@react-three/drei'
 import './HeroSection.css'
 
-function FloatingModel({ position, rotation, scale }) {
+function FloatingModel({ position, rotation, scale, modelPath }) {
   const modelRef = useRef()
-  const { scene } = useGLTF('/models/model.glb')
+  const { scene } = useGLTF(modelPath)
   const offset = useRef(Math.random() * Math.PI * 2)
 
   useFrame(({ clock }) => {
@@ -27,10 +27,10 @@ function FloatingModel({ position, rotation, scale }) {
 
 function Scene() {
   const models = [
-    { position: [-4, 3, -2], rotation: [0.3, -0.5, 0.2], scale: 1.2 },
-    { position: [4, 3.5, -1], rotation: [-0.2, 0.8, -0.3], scale: 1.5 },
-    { position: [-3.5, -3, -2.5], rotation: [0.5, 0.3, 0.4], scale: 1 },
-    { position: [4.5, -2.5, -1.5], rotation: [-0.4, -0.6, 0.1], scale: 1.3 }
+    { position: [-4, 3, -2], rotation: [0.3, -0.5, 0.2], scale: 1.2, modelPath: '/models/model.glb' },
+    { position: [4, 3.5, -1], rotation: [-0.2, 0.8, -0.3], scale: 1.5, modelPath: '/models/2yes.glb' },
+    { position: [-3.5, -3, -2.5], rotation: [0.5, 0.3, 0.4], scale: 1, modelPath: '/models/model.glb' },
+    { position: [4.5, -2.5, -1.5], rotation: [-0.4, -0.6, 0.1], scale: 1.3, modelPath: '/models/2yes.glb' }
   ]
 
   return (
@@ -62,3 +62,6 @@ export default function HeroSection() {
     </section>
   )
 }
+
+useGLTF.preload('/models/model.glb')
+useGLTF.preload('/models/2yes.glb')
